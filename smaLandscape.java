@@ -15,7 +15,7 @@ public class smaLandscape
    public Random rnd = new Random();
    public double global_max;
    
-    public smaLandscape(int min1, int max1, int min2, int max2)
+    public smaLandscape(int min1, int max1, int min2, int max2, int numagents)
     {
         param_1_min = min1;
         param_2_min = min2;
@@ -23,8 +23,8 @@ public class smaLandscape
         param_2_max = max2;
         global_max = -1000;
         landscape = new double[max1 - min1 + 1][max2 - min2 + 1];
-        agents = new smaAgent[10];
-        for(int i = 0; i < 10; i++){
+        agents = new smaAgent[numagents];
+        for(int i = 0; i < numagents; i++){
             agents[i] = new smaAgent(rnd.nextInt(max1 - min1), rnd.nextInt(max2 - min2), i);
             System.out.println("agent at " + agents[i].i + "," + agents[i].j);
         }
