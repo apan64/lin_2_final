@@ -31,7 +31,16 @@ public class NKModel {
 		for (int i = 1; i < data.size(); i++) {
 			data.get(i).open = data.get(i - 1).close;
 		}
-
+		
+		int nmin = 1;
+		int nmax = 50;
+		int mmin = 10;
+		int mmax = 100;
+		smaLandscape Land = new smaLandscape(nmin, nmax, mmin, mmax);
+		double[][] landscape = new double[nmax - nmin][mmax - mmin];
+		for (int i = 0; i < 10; i++) {
+			landscape = Land.step(data);
+		}
 	
 	}
 	
