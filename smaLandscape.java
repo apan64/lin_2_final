@@ -24,6 +24,7 @@ public class smaLandscape
         agents = new smaAgent[10];
         for(int i = 0; i < 10; i++){
             agents[i] = new smaAgent(rnd.nextInt(max1 - min1), rnd.nextInt(max2 - min2), i);
+            System.out.println("agent at " + agents[i].i + "," + agents[i].j);
         }
         for(int i = 0; i <= (max1 - min1); i++){
             for(int j = 0; j <= (max2 - min2); j++){
@@ -31,22 +32,23 @@ public class smaLandscape
                 landscape[i][j] = 0;
             }
         }
-        
-    
     }
+
 
     public double fitness(int i, int j, ArrayList<dayData> data)
     {
-        return calcSMA(data, i, j);
+    	System.out.println(calcSMA(data, i, j));
+    	return calcSMA(data, i, j);
+        
         // return calcEMA(data, i, j, 0.05);
     }
     public double[][] step(ArrayList<dayData> data)
     {
         for(smaAgent a: agents){
             double curFit = fitness(a.i, a.j, data);
-            landscape[a.i][a.i] = curFit;
+            landscape[a.i][a.j] = curFit;
             double[] fitnesses = new double[4];
-            if(a.i != param_1_min){
+            if(a.i > 0){
                 if(landscape[a.i - 1][a.j] == 0){
                     fitnesses[0] = fitness(a.i - 1, a.j, data);
                 }
@@ -54,7 +56,7 @@ public class smaLandscape
                     fitnesses[0] = landscape[a.i - 1][a.j];
                 }
             }
-            if(a.i != param_1_max){
+            if(a.i < param_1_max - param_1_min){
                 if(landscape[a.i + 1][a.j] == 0){
                     fitnesses[1] = fitness(a.i + 1, a.j, data);
                 }
@@ -62,7 +64,7 @@ public class smaLandscape
                     fitnesses[1] = landscape[a.i + 1][a.j];
                 }
             }
-            if(a.j != param_2_min){
+            if(a.j > 0){
                 if(landscape[a.i][a.j - 1] == 0){
                     fitnesses[2] = fitness(a.i, a.j - 1, data);
                 }
@@ -70,7 +72,7 @@ public class smaLandscape
                     fitnesses[2] = landscape[a.i][a.j - 1];
                 }
             }
-            if(a.j != param_2_max){
+            if(a.j < param_2_max - param_2_min){
                 if(landscape[a.i][a.j + 1] == 0){
                     fitnesses[3] = fitness(a.i, a.j + 1, data);
                 }
